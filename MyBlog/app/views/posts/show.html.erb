@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<div class="blog-masthead">
+    <div class="container">
+      <nav class="nav blog-nav">
+        <a class="nav-link active" href="#">Home</a>
+        <a class="nav-link" href="#">New features</a>
+        <a class="nav-link" href="#">Press</a>
+        <a class="nav-link" href="#">New hires</a>
+        <a class="nav-link" href="#">About</a>
+      </nav>
+    </div>
+  </div>
+
+
+  <div class="blog-header">
+    <div class="container">
+      <h1 class="blog-title">The Eric Blog</h1>
+      <p class="lead blog-description">An example blog template built with Bootstrap.</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+  <div class="row">
+
+    <div class="col-sm-8 blog-main">
+    </div>
+  </div>
+
+  </div>
+
+<div class="container theme-showcase" role="main">
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p>
+</div>
+</div>
+
+<p>
+  <strong>Category:</strong>
+  <%= @post.category.title %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+
+<div>
+  <tbody>
+    <% @post.comments.each do |comment| %>
+      <tr>
+        <td><%= comment.body %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</div>
+
+<div>
+  <%= form_for [@post, @post.comments.new] do |form| %>
+    <form>
+      <%= form.text_area :body %>
+
+          <div class="actions">
+          <%= form.submit %>
+        </div>
+      <% end %>
+    </form>
+</div>
