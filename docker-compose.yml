@@ -1,16 +1,21 @@
 version: "3.9"
 services:
   db:
-    image: postgres
+    image: postgres:9
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+      - ./app:/myapp
+      # - ./tmp/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+      # - ./tmp/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     environment:
       POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/MyBlog
+      - .:/myapp
     ports:
       - "3000:3000"
     depends_on:
